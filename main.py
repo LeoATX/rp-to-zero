@@ -19,27 +19,24 @@
 class Solution:
     def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
         output = list()
-        candidates = candidates
-
-        output.append(self.find_target(candidates, target))
+        self.find_target(list(), candidates, target, output)
 
         return output
 
-    def find_target(self, current, target):
-        print(current, target)
-        print(sum(current))
+    def find_target(self, current, candidates, target, output):
+        print(current)
+        print("sum " + str(sum(current)))
         if sum(current) == target:
-            return current
-        if sum(current) > target:
-            return
+
+        # if sum(current) > target:
+        #     return
 
         for number in candidates:
             current.append(number)
-
-        print(current)
-        self.find_target(current, target)
+            if sum(current) > target:
+                continue
+            self.find_target(current, candidates, target)
 
 
 solution_obj = Solution()
-solution_obj.combinationSum([2, 3, 6, 7], 7)
-
+print("\n\n\nsolution: " + str(solution_obj.combinationSum([2, 3, 6, 7], 7)))
