@@ -17,25 +17,26 @@
 
 
 class Solution:
+    output = []
+
     def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
-        output = list()
-        self.find_target(list(), candidates, target, output)
+        self.find_target([], candidates, target, 0)
 
-        return output
+        return self.output
 
-    def find_target(self, current, candidates, target, output):
+    def find_target(self, current, candidates, target, index):
         print(current)
         print("sum " + str(sum(current)))
         if sum(current) == target:
+            self.output.append(current)
+            print(self.output)
+            return
+        if sum(current) > target:
+            return
 
-        # if sum(current) > target:
-        #     return
-
-        for number in candidates:
-            current.append(number)
-            if sum(current) > target:
-                continue
-            self.find_target(current, candidates, target)
+        current.append(candidates[index])
+        index += 1
+        self.find_target(current, candidates, target, index)
 
 
 solution_obj = Solution()
