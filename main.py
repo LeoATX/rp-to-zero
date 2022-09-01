@@ -15,29 +15,31 @@
 # master = [*set(master)]
 # master.sort()
 
-
 class Solution:
-    output = []
+    def combination_sum(self, candidates: list[int], target: int) -> list[list[int]]:
+        output = []
+        self.find_target([], candidates, target, output)
+        return output
 
-    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
-        self.find_target([], candidates, target, 0)
-
-        return self.output
-
-    def find_target(self, current, candidates, target, index):
+    def find_target(self, current, candidates, target, output):
         print(current)
         print("sum " + str(sum(current)))
         if sum(current) == target:
-            self.output.append(current)
-            print(self.output)
+            output.append(current)
+            print(output)
             return
         if sum(current) > target:
             return
 
-        current.append(candidates[index])
-        index += 1
-        self.find_target(current, candidates, target, index)
+        for loop in range(len(candidates)):
+            self.find_target(current + [candidates[loop]], candidates[:loop + 1], target, output)
 
 
 solution_obj = Solution()
-print("\n\n\nsolution: " + str(solution_obj.combinationSum([2, 3, 6, 7], 7)))
+# [2,3,6,7]
+# 7
+# [2,3,5]
+# 8
+# [2]
+# 1
+print("\n\n\n" + str(solution_obj.combination_sum([2, 3, 5], 8)))
